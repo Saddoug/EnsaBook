@@ -90,6 +90,8 @@
 
                         <TextView
                             android:id="@+id/descriptiondetail"
+                            android:linksClickable="true"
+                            android:autoLink="web"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/descriptionaboutTitle"
@@ -100,10 +102,7 @@
                             android:layout_marginBottom="10dp"
                             android:background="@drawable/search_view_bg"
                             android:padding="10dp"
-                            android:text="This app is created to help and facilitate the process of reserving books from library of the school.
-                            To reserve your book you only need to login to your account and browse available books and click on button reserve to obtain your RESERVATION NUMBER and deliver it to the librarian to get your book.
-                            For further informations about the app see the link :
-                             www.github.com/gjfjfjeldvfvddbd"
+                            android:text="This app is created to help and facilitate the process of reserving books from library of the school To reserve your book you only need to login to your account and browse available books and click on button reserve to obtain your RESERVATION NUMBER and deliver it to the librarian to get your book.For further informations about the app see the link  \n https://github.com/Saddoug/EnsaBook.git"
                             android:textSize="15sp"
                             android:textStyle="italic" />
 

@@ -43,8 +43,8 @@ tools:ignore="InvalidId"
         android:layout_alignParentEnd="true"
         android:layout_centerInParent="true"
         android:background="@drawable/toggle_selector"
-        android:paddingLeft="10dp"
         android:onClick="makeFavorite"
+        android:paddingLeft="10dp"
         android:textOff=""
         android:textOn="" />
 </RelativeLayout>

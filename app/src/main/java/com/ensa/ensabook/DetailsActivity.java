@@ -36,12 +36,14 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
     ToggleButton toggleButton;
     ImageView leftIcon ;
     private Toolbar toolbar;
+    DatabaseHelper databaseHelper;
 
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
+        databaseHelper= new DatabaseHelper(getApplicationContext());
         toolbar=findViewById(R.id.myToolBar);
         setSupportActionBar(toolbar);
         toggleButton=findViewById(R.id.togglefavorite);
@@ -65,7 +67,7 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
          if (modelFromMainActivity.isFavorite()){
              toggleButton.setChecked(true);
 
-         }
+         }else {toggleButton.setChecked(false);}
 
 
 //        String categoryofbook = getIntent().getStringExtra("category");
@@ -94,7 +96,10 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
         Toast.makeText(DetailsActivity.this,"Added to favorite list",Toast.LENGTH_SHORT).show();
         afficheNotif("your favorite list is updated. see your favorite books ");
         if (modelFromMainActivity.isFavorite()){
-            modelFromMainActivity.setFavorite(false);
+            databaseHelper.removeFromFavorites(modelFromMainActivity.getId());
+
+        }else{
+            databaseHelper.addToFavorites(modelFromMainActivity.getId());
         }
 
 
@@ -145,7 +150,7 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
 
 
         dialog.setTitle("RESERVATION");
-        dialog.setMessage("Here'a your Reservation Number :"+ref+" \n Deliver this number to the librarian to get your book ");
+        dialog.setMessage("Here's your Reservation Number :"+ref+" \n Deliver this number to the librarian to get your book ");
         dialog.setPositiveButton("ok", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {

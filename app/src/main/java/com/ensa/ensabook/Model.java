@@ -27,6 +27,16 @@ public class Model implements Parcelable {
         this.favorite = favorite;
         this.bookPhoto=bookPhoto;
     }
+    public Model(Integer id, String title, String author, String category, String description, double price, boolean favorite) {
+        this.id = null;
+        this.title = title;
+        this.author = author;
+        this.category = category;
+        this.description = description;
+        this.price = price;
+        this.favorite = favorite;
+
+    }
     public Model( String title, String author, String category, String description, double price, boolean favorite,int bookPhoto) {
 
         this.title = title;

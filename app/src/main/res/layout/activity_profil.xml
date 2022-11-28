@@ -51,7 +51,7 @@
         android:layout_alignParentEnd="true"
         android:layout_centerHorizontal="true"
         android:backgroundTint="@color/black"
-        android:onClick="addnewbook"
+
         android:text="Add NEW BOOK"
         android:textColor="@color/white"
         app:flow_horizontalAlign="center"

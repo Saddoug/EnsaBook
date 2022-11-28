@@ -1,4 +1,4 @@
-package com.ensa.addbook;
+package com.ensa.ensabook;
 
 
 import android.content.ContentValues;
@@ -10,6 +10,8 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import com.ensa.ensabook.Model;
 
 import java.io.FileInputStream;
 import java.util.ArrayList;
@@ -31,7 +33,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL("create table if not exists books (id integer primary key autoincrement," +
-                "title text not null, author text, category text, description text, price real, favorite integer, image blob)");
+                "title text not null, author text, category text, description text, price real, favorite integer, image integer)");
     }
 
     @Override
@@ -49,7 +51,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put("category",data.getCategory());
         contentValues.put("description",data.getDescription());
         contentValues.put("price",data.getPrice());
-        contentValues.put("favorite",0);
+        contentValues.put("favorite",data.isFavorite()==true?1:0);
+        contentValues.put("image",data.getBookPhoto());
 
         long table = sqLiteDatabase.insert("books", null, contentValues);
         Log.e(TAG,"insertion des donnes: " +table);
@@ -57,23 +60,35 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
     public void deleteBook(int id){
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
-        int isDeleted = sqLiteDatabase.delete("books", "_id=?", new String[]{Integer.toString(id)});
+        int isDeleted = sqLiteDatabase.delete("books", "id=?", new String[]{Integer.toString(id)});
         if (isDeleted==-1) Log.e(TAG,"Failed to delete book with id "+id);
         else Log.e(TAG,"Book with id "+id+" Succefully deleted");
     }
 
-    public Cursor readAllBooks(){
+    public ArrayList<Model> readAllBooks(){
+        ArrayList<Model> result = new ArrayList<>();
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
-        Cursor cursor;
-        cursor = sqLiteDatabase.rawQuery("select * from books",null);
-        return cursor;
+        Cursor c;
+        c = sqLiteDatabase.rawQuery("select * from books",null);
+        c.moveToFirst();
+        while (c.isAfterLast() == false){
+            result.add(getModel(c));
+            c.moveToNext();
+        }
+        return result;
     }
 
-    public Cursor readFavoritesBooks(){
+    public ArrayList<Model> readFavoritesBooks(){
+        ArrayList<Model> result = new ArrayList<>();
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
-        Cursor cursor;
-        cursor = sqLiteDatabase.rawQuery("select * from books where favorite = 1",null);
-        return cursor;
+        Cursor c;
+        c = sqLiteDatabase.rawQuery("select * from books where favorite = 1",null);
+        c.moveToFirst();
+        while (c.isAfterLast() == false){
+            result.add(getModel(c));
+            c.moveToNext();
+        }
+        return result;
     }
 
     public Model getBook(int id){
@@ -89,9 +104,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         book.setId(c.getInt(0));
         book.setTitle(c.getString(1));
         book.setAuthor(c.getString(2));
-        book.setDescription(c.getString(3));
-        book.setPrice(c.getInt(4));
-        book.setFavorite((c.getInt(5)==0? false:true));
+        book.setCategory(c.getString(3));
+        book.setDescription(c.getString(4));
+        book.setPrice(c.getInt(5));
+        book.setFavorite((c.getInt(6)==0? false:true));
+        book.setBookPhoto(c.getInt(7));
         return book;
     }
 
@@ -101,7 +118,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ContentValues contentValues = new ContentValues();
         Model book = getBook(id);
         contentValues.put("favorite",1);
-        int updatedRow = sqLiteDatabase.update("books", contentValues, "_id=?", new String[]{Integer.toString(id)});
+        int updatedRow = sqLiteDatabase.update("books", contentValues, "id=?", new String[]{Integer.toString(id)});
+        if (updatedRow==-1) Log.e(TAG,"Failed to update book with id "+id);
+        else Log.e(TAG,"Book with id "+id+" Succefully updated");
+    }
+    public void removeFromFavorites(int id){
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        Model book = getBook(id);
+        contentValues.put("favorite",0);
+        int updatedRow = sqLiteDatabase.update("books", contentValues, "id=?", new String[]{Integer.toString(id)});
         if (updatedRow==-1) Log.e(TAG,"Failed to update book with id "+id);
         else Log.e(TAG,"Book with id "+id+" Succefully updated");
     }

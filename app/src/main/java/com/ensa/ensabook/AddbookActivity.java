@@ -21,11 +21,13 @@ public class AddbookActivity extends AppCompatActivity implements View.OnClickLi
     EditText description;
     Button buttonSubmit;
     Button buttonReset;
+    DatabaseHelper databaseHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_addbook);
+        databaseHelper=new DatabaseHelper(getApplicationContext());
         titel=findViewById(R.id.bookTitleInput);
         category=findViewById(R.id.bookCategoryInput);
         author=findViewById(R.id.bookAuthorInput);
@@ -69,10 +71,11 @@ public class AddbookActivity extends AppCompatActivity implements View.OnClickLi
         if(bAuthor.isEmpty() || bTitle.isEmpty()|| bCategory.isEmpty()|| bPrice.isEmpty()|| bDescription.isEmpty()){
             Toast.makeText(this,"you have to fill blanks",Toast.LENGTH_LONG).show();
         }else {
+
+            Model model = new Model(null,bTitle,bAuthor,bCategory,bDescription,Double.valueOf(bPrice),false,R.drawable.cover1);
+            databaseHelper.AddBook(model);
             Intent intent = new Intent(AddbookActivity.this,MainActivity.class);
-            Model model = new Model(bTitle,bAuthor,bCategory,bDescription,Double.valueOf(bPrice),false,R.drawable.cover1);
-//
-            intent.putExtra("modeladded",model);
+//            intent.putExtra("modeladded",model);
 
 
             startActivity(intent);
