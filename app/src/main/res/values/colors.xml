@@ -16,6 +16,10 @@
     <color name="BLUE_1">#26C2F0</color>
     <color name="BLUE_2">#049A9E</color>
     <color name="GRAY_4">#464646</color>
+    <color name="pinkorange">#F05A62</color>
+    <color name="inputcolor">#FF167E9E</color>
+    <color name="buttoncolor">#E91E63</color>
+
 
 
 </resources>

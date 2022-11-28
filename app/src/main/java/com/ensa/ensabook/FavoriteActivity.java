@@ -2,99 +2,46 @@ package com.ensa.ensabook;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
-import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.RecyclerViewAccessibilityDelegate;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
-public class MainActivity extends AppCompatActivity implements RecyclerViewInterface{
-    private Toolbar toolbar;
-   private ImageView leftIcon ;
-   ImageView rightIcon ;
-    ImageView loginIcon ;
-   TextView title ;
-   List<Model> modelList;
-   Model modelFromAddbookActivity=null;
-   RecyclerView recyclerView;
-   BookAdapter bookAdapter;
-   SearchView searchView;
-   BottomNavigationView bottomNavigationView;
-    @SuppressLint("MissingInflatedId")
+public class FavoriteActivity extends AppCompatActivity implements RecyclerViewInterface {
+    ImageView leftIcon ;
+    List<Model> modelList;
+    List<Model> filteredmodelList;
+    RecyclerView recyclerView;
+    FavoriteAdapter favoriteAdapter;
+    SearchView searchView;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        toolbar=findViewById(R.id.myToolBar);
-        setSupportActionBar(toolbar);
-        bottomNavigationView=findViewById(R.id.bottomNavigationView);
-        bottomNavigationView.getMenu().getItem(0).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem menuItem) {
-                Toast.makeText(MainActivity.this,"HOME",Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(MainActivity.this,MainActivity.class);
-                startActivity(intent);
-                return true;
-            }
-        });
-        bottomNavigationView.getMenu().getItem(2).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem menuItem) {
-                Toast.makeText(MainActivity.this,"Favorote Books",Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(MainActivity.this,FavoriteActivity.class);
-                startActivity(intent);
-                return true;
-            }
-        });
-
+        setContentView(R.layout.activity_favorite);
         leftIcon= findViewById(R.id.left_icon);
-        rightIcon= findViewById(R.id.right_icon);
-        title=findViewById(R.id.toolbar_title);
         leftIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(MainActivity.this,"EnsaBook",Toast.LENGTH_SHORT).show();
-
-            }
-        });
-        rightIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(MainActivity.this,"About US",Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(MainActivity.this,AboutActivity.class);
-                startActivity(intent);
-            }
-        });
-        loginIcon= findViewById(R.id.login_icon);
-        loginIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this,LoginActivity.class);
+                Intent intent = new Intent(FavoriteActivity.this,MainActivity.class);
                 startActivity(intent);
 
             }
         });
-        //creating an arraylist
-        modelFromAddbookActivity =getIntent().getParcelableExtra("modeladded");
+
+ //creating an arraylist
         modelList=new ArrayList<>();
-        if (modelFromAddbookActivity!= null){
-        modelList.add(modelFromAddbookActivity);}
 
         modelList.add(new Model("CHEMISTRY"," BY WEIKE WANG","ROMANCE","At first glance, the quirky, overworked narrator of Weike Wang’s debut novel seems to be on the cusp of a perfect life: she is studying for a prestigious PhD in chemistry that will make her Chinese parents proud (or at least satisfied), and her successful, supportive boyfriend has just proposed to her. But instead of feeling hopeful, she is wracked with ambivalence: the long, demanding hours at the lab have created an exquisite pressure cooker, and she doesn’t know how to answer the marriage question. When it all becomes too much and her life plan veers off course, she finds herself on a new path of discoveries about everything she thought she knew. Smart, moving, and always funny, this unique coming-of-age story is certain to evoke a winning reaction.",55.0,false,R.drawable.chemistry));
 
@@ -112,12 +59,13 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
         modelList.add(new Model("title3","author3","category3","description3",55.0,false,R.drawable.cover3));
         modelList.add(new Model("title4","author4","category4","description4",55.0,false,R.drawable.cover4));
         modelList.add(new Model("title5","author5","category5","description5",55.0,false,R.drawable.cover5));
+        filteredmodelList=modelList;
         //recyclerView
         recyclerView= findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(null));
         //adapter
-        bookAdapter = new BookAdapter(this,modelList,this);
-        recyclerView.setAdapter(bookAdapter);
+        favoriteAdapter = new FavoriteAdapter(this,modelList,this);
+        recyclerView.setAdapter(favoriteAdapter);
         //search view
         searchView=findViewById(R.id.searchView);
         searchView.clearFocus();
@@ -155,57 +103,36 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
             }
 
             if(filteredList.isEmpty()){
+
                 Toast.makeText(this,"NO DATA FOUND",Toast.LENGTH_SHORT).show();
             }else {
-                bookAdapter.setFiltredList(filteredList);
+
+                favoriteAdapter.setFiltredList(filteredList);
+                filteredmodelList=filteredList;
+            }
+            if (text.isEmpty()){
+                filteredmodelList=modelList;
             }
         }
     }
 
     @Override
     public void onItemClick(int position) {
-        Intent intent = new Intent(MainActivity.this,DetailsActivity.class);
-//        intent.putExtra("title",modelList.get(position).getTitle());
-//        intent.putExtra("price",modelList.get(position).getPrice());
-//        intent.putExtra("category",modelList.get(position).getCategory());
-//        intent.putExtra("author",modelList.get(position).getAuthor());
-//        intent.putExtra("description",modelList.get(position).getDescription());
-//        intent.putExtra("image",modelList.get(position).getBookPhoto());
-        intent.putExtra("model",modelList.get(position));
+        List<Model> filteredList =new ArrayList<>();
+        for(Model model: modelList){
+            if(!model.equals(filteredmodelList.get(position))){
+                filteredList.add(model);}}
+        modelList=filteredList;
+        favoriteAdapter.setFiltredList(filteredList);
+        Toast.makeText(FavoriteActivity.this,"BOOK DELETED",Toast.LENGTH_SHORT).show();
 
 
+    }
+    public void addnewbook(View view) {
+        Intent intent = new Intent(FavoriteActivity.this,MainActivity.class);
         startActivity(intent);
 
     }
 
-
-
-
-    public void favoritism(MenuItem item) {
-        Intent intent = new Intent(MainActivity.this, FavoriteActivity.class);
-        startActivity(intent);
-    }
-
-
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        getMenuInflater().inflate(R.menu.menusearch,menu);
-//        MenuItem menuItem= menu.findItem(R.id.action_search);
-//        SearchView searchView=(SearchView) menuItem.getActionView();
-//        searchView.setQueryHint("Type here to search");
-//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-//            @Override
-//            public boolean onQueryTextSubmit(String query) {
-//                return false;
-//            }
-//
-//            @Override
-//            public boolean onQueryTextChange(String newText) {
-//
-//                return false;
-//            }
-//        });
-//        return super.onCreateOptionsMenu(menu);
-//    }
 
 }

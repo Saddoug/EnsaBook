@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:ignore="ExtraText"
+
+
+    >
+    <include
+        android:id="@+id/include"
+        layout="@layout/appbarabout" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="60dp">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".DetailsActivity"
+            >
+
+
+            <RelativeLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="4dp"
+                android:padding="10dp"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:context=".DetailsActivity"
+                tools:layout_editor_absoluteX="0dp">
+
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/firstCardView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+
+                    android:layout_marginTop="28dp"
+                    app:cardCornerRadius="10dp"
+                    app:cardElevation="10dp">
+
+                    <RelativeLayout
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp">
+
+
+
+                        <TextView
+                            android:id="@+id/addBookTitle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+
+                            android:layout_alignParentStart="true"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginEnd="20dp"
+                            android:layout_marginBottom="10dp"
+                            android:background="@drawable/category_bg"
+                            android:paddingLeft="12dp"
+                            android:text="About Us"
+                            android:textColor="@color/BLUE_2"
+                            android:textSize="30sp"
+                            android:textStyle="bold" />
+
+
+
+
+                        <TextView
+                            android:id="@+id/descriptionaboutTitle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/addBookTitle"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="30dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:padding="10dp"
+                            android:text="EnsaBook"
+                            android:textSize="15sp"
+
+                            android:textStyle="italic|bold" />
+
+                        <TextView
+                            android:id="@+id/descriptiondetail"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/descriptionaboutTitle"
+
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="1dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:background="@drawable/search_view_bg"
+                            android:padding="10dp"
+                            android:text="This app is created to help and facilitate the process of reserving books from library of the school.
+                            To reserve your book you only need to login to your account and browse available books and click on button reserve to obtain your RESERVATION NUMBER and deliver it to the librarian to get your book.
+                            For further informations about the app see the link :
+                             www.github.com/gjfjfjeldvfvddbd"
+                            android:textSize="15sp"
+                            android:textStyle="italic" />
+
+
+                    </RelativeLayout>
+
+
+                </androidx.cardview.widget.CardView>
+
+
+
+
+            </RelativeLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

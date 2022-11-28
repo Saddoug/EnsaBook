@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:ignore="ExtraText"
+    android:background="@drawable/background"
+
+
+    >
+    <include
+        android:id="@+id/include"
+        layout="@layout/appbarabout" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="60dp">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".DetailsActivity"
+            >
+
+
+            <RelativeLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="4dp"
+                android:padding="10dp"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:context=".DetailsActivity"
+                tools:layout_editor_absoluteX="0dp"
+                >
+
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="127dp"
+                    android:layout_height="109dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginStart="138dp"
+                    android:layout_marginTop="22dp"
+                    android:layout_marginEnd="137dp"
+                    android:layout_centerHorizontal="true"
+                    android:contentDescription="@string/todo"
+                    app:srcCompat="@drawable/ic_baseline_logo_book_24" />
+
+                <EditText
+                    android:id="@+id/editTextTextPersonName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:layout_below="@+id/imageView2"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginStart="83dp"
+                    android:layout_marginTop="73dp"
+                    android:layout_marginEnd="60dp"
+                    android:autofillHints=""
+                    android:background="@color/inputcolor"
+                    android:backgroundTint="@color/white"
+                    android:backgroundTintMode="multiply"
+                    android:drawableStart="@drawable/ic_person"
+                    android:ems="10"
+                    android:hint="@string/username"
+                    android:inputType="textPersonName"
+
+                    android:textColor="@color/white"
+                    android:textColorHint="#FFFFFF"/>
+
+                <EditText
+                    android:id="@+id/editTextTextPassword"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:layout_below="@+id/editTextTextPersonName"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginStart="80dp"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginEnd="62dp"
+                    android:layout_marginBottom="1dp"
+                    android:autofillHints=""
+                    android:background="@color/inputcolor"
+                    android:backgroundTint="@color/white"
+                    android:backgroundTintMode="multiply"
+                    android:drawableStart="@drawable/ic_password_icon"
+
+
+                    android:ems="10"
+                    android:hint="@string/password"
+                    android:inputType="textPassword"
+                    android:textColor="@color/white"
+                    android:textColorHint="#FFFFFF" />
+
+                <Button
+                    android:id="@+id/button2"
+                    android:onClick="affichProfile"
+                    android:layout_width="217dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/textView2"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginStart="103dp"
+                    android:layout_marginTop="75dp"
+                    android:layout_marginEnd="91dp"
+                    android:backgroundTint="@color/buttoncolor"
+                    android:text="@string/loginbuton"
+                    android:textColor="@color/white"
+                    tools:ignore="TextContrastCheck" />
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="269dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/editTextTextPassword"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginStart="80dp"
+                    android:layout_marginTop="35dp"
+                    android:layout_marginEnd="63dp"
+                    android:textColor="@color/white"
+                    android:text=""/>
+
+
+
+
+
+
+            </RelativeLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

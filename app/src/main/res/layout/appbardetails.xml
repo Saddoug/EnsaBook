@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="?attr/actionBarSize"
+android:background="@color/gray_2"
+android:id="@+id/myToolBar"
+
+tools:ignore="InvalidId"
+    >
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <ImageView
+        android:id="@+id/left_icon"
+        android:layout_width="43dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_centerInParent="true"
+        android:src="@drawable/ic_back_icon" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="EnsaBook"
+        android:layout_marginStart="16dp"
+        android:layout_toEndOf="@+id/left_icon"
+        android:id="@+id/toolbar_title"
+        android:textStyle="italic"
+
+
+        android:textSize="20dp"/>
+
+
+    <ToggleButton
+        android:id="@+id/togglefavorite"
+        android:layout_width="36dp"
+        android:layout_height="23dp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerInParent="true"
+        android:background="@drawable/toggle_selector"
+        android:paddingLeft="10dp"
+        android:onClick="makeFavorite"
+        android:textOff=""
+        android:textOn="" />
+</RelativeLayout>
+
+
+</androidx.appcompat.widget.Toolbar>

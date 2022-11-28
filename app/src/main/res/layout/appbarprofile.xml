@@ -35,23 +35,16 @@
 
             android:textSize="20dp"/>
 
-        <ImageView
-            android:id="@+id/right_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toStartOf="@id/login_icon"
 
-            android:layout_centerInParent="true"
-            android:src="@drawable/ic_baseline_info_24" />
 
         <ImageView
-            android:id="@+id/login_icon"
+            android:id="@+id/logout_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_centerInParent="true"
             android:paddingLeft="10dp"
-            android:src="@drawable/ic_login_icon" />
+            android:src="@drawable/ic_logout_icon" />
     </RelativeLayout>
 
 

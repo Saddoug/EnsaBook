@@ -13,14 +13,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="16dp">
+
         <ImageView
-            android:layout_width="wrap_content"
+            android:id="@+id/left_icon"
+            android:layout_width="43dp"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_baseline_logo_book_24"
             android:layout_alignParentStart="true"
             android:layout_centerInParent="true"
-            android:id="@+id/left_icon"
-            />
+            android:src="@drawable/ic_back_icon" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -35,23 +35,8 @@
 
             android:textSize="20dp"/>
 
-        <ImageView
-            android:id="@+id/right_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toStartOf="@id/login_icon"
 
-            android:layout_centerInParent="true"
-            android:src="@drawable/ic_baseline_info_24" />
 
-        <ImageView
-            android:id="@+id/login_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_centerInParent="true"
-            android:paddingLeft="10dp"
-            android:src="@drawable/ic_login_icon" />
     </RelativeLayout>
 
 

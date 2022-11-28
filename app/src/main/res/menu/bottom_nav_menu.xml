@@ -13,5 +13,6 @@
         android:id="@+id/Favorite"
         android:icon="@drawable/ic_baseline_bookfavorite_24"
         android:title="Favorite"
+        android:onClick="favoritism"
         />
 </menu>
