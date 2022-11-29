@@ -154,7 +154,17 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
         dialog.setPositiveButton("ok", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
+
+                databaseHelper.addToReservation(modelFromMainActivity.getId());
+
+
+
+
                 Toast.makeText(DetailsActivity.this,"your Reservation is done",Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(DetailsActivity.this,ReservationActivity.class);
+                startActivity(intent);
+
+
             }
         });
 

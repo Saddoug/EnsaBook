@@ -36,9 +36,7 @@ public class AddbookActivity extends AppCompatActivity implements View.OnClickLi
         buttonSubmit=findViewById(R.id.buttonSubmit);
         buttonReset=findViewById(R.id.buttonRAZ);
         buttonSubmit.setOnClickListener(this);
-
-
-
+        
         logoutIcon= findViewById(R.id.logout_icon);
         logoutIcon.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,6 +46,7 @@ public class AddbookActivity extends AppCompatActivity implements View.OnClickLi
 
             }
         });
+
 
     }
     public void reset(View v){
@@ -72,7 +71,7 @@ public class AddbookActivity extends AppCompatActivity implements View.OnClickLi
             Toast.makeText(this,"you have to fill blanks",Toast.LENGTH_LONG).show();
         }else {
 
-            Model model = new Model(null,bTitle,bAuthor,bCategory,bDescription,Double.valueOf(bPrice),false,R.drawable.cover1);
+            Model model = new Model(null,bTitle,bAuthor,bCategory,bDescription,Double.valueOf(bPrice),false,R.drawable.cover1,false);
             databaseHelper.AddBook(model);
             Intent intent = new Intent(AddbookActivity.this,MainActivity.class);
 //            intent.putExtra("modeladded",model);

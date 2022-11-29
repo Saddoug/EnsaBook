@@ -12,12 +12,22 @@ public class Model implements Parcelable {
     private double price;
     private boolean favorite;
     private int bookPhoto;
+    private boolean reserved;
+
 
 
     public Model() {
     }
 
-    public Model(Integer id, String title, String author, String category, String description, double price, boolean favorite,int bookPhoto) {
+    public boolean isReserved() {
+        return reserved;
+    }
+
+    public void setReserved(boolean reserved) {
+        this.reserved = reserved;
+    }
+
+    public Model(Integer id, String title, String author, String category, String description, double price, boolean favorite, int bookPhoto, boolean reserved) {
         this.id = null;
         this.title = title;
         this.author = author;
@@ -26,6 +36,7 @@ public class Model implements Parcelable {
         this.price = price;
         this.favorite = favorite;
         this.bookPhoto=bookPhoto;
+        this.reserved=reserved;
     }
     public Model(Integer id, String title, String author, String category, String description, double price, boolean favorite) {
         this.id = null;
@@ -36,8 +47,19 @@ public class Model implements Parcelable {
         this.price = price;
         this.favorite = favorite;
 
+
     }
     public Model( String title, String author, String category, String description, double price, boolean favorite,int bookPhoto) {
+
+        this.title = title;
+        this.author = author;
+        this.category = category;
+        this.description = description;
+        this.price = price;
+        this.favorite = favorite;
+        this.bookPhoto=bookPhoto;
+    }
+    public Model( String title, String author, String category, double price) {
 
         this.title = title;
         this.author = author;

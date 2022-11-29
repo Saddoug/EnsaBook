@@ -15,6 +15,7 @@ import com.ensa.ensabook.Model;
 
 import java.io.FileInputStream;
 import java.util.ArrayList;
+import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
@@ -22,7 +23,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private Context context;
 
-    public static final String databaseName = "myDatabase.db";
+    public static final String databaseName = "myDatabases.db";
     public static final int databaseVersion = 1;
 
     public DatabaseHelper(@Nullable Context context) {
@@ -33,12 +34,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL("create table if not exists books (id integer primary key autoincrement," +
-                "title text not null, author text, category text, description text, price real, favorite integer, image integer)");
+                "title text not null, author text, category text, description text, price real, favorite integer, image integer,reserved integer)");
+
+
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
         sqLiteDatabase.execSQL("drop table if exists books");
+
         onCreate(sqLiteDatabase);
     }
 
@@ -53,9 +57,55 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put("price",data.getPrice());
         contentValues.put("favorite",data.isFavorite()==true?1:0);
         contentValues.put("image",data.getBookPhoto());
+        contentValues.put("reserved",data.isFavorite()==true?1:0);
+
 
         long table = sqLiteDatabase.insert("books", null, contentValues);
         Log.e(TAG,"insertion des donnes: " +table);
+
+    }
+    public void addToReservation(int id){
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        Model book = getBook(id);
+        contentValues.put("reserved",1);
+        int updatedRow = sqLiteDatabase.update("books", contentValues, "id=?", new String[]{Integer.toString(id)});
+        if (updatedRow==-1) Log.e(TAG,"Failed to update book with id "+id);
+        else Log.e(TAG,"Book with id "+id+" Succefully updated");
+    }
+
+    public void removeFromReservation(int id){
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        Model book = getBook(id);
+        contentValues.put("reserved",0);
+        int updatedRow = sqLiteDatabase.update("books", contentValues, "id=?", new String[]{Integer.toString(id)});
+        if (updatedRow==-1) Log.e(TAG,"Failed to update book with id "+id);
+        else Log.e(TAG,"Book with id "+id+" Succefully updated");
+    }
+
+    public ArrayList<Model> readAllReservations(){
+        ArrayList<Model> result = new ArrayList<>();
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+        Cursor c;
+        c = sqLiteDatabase.rawQuery("select * from books where reserved=1",null);
+        c.moveToFirst();
+        while (c.isAfterLast() == false){
+            Model book = getModel(c);
+            book.setReserved(true);
+            result.add(book);
+            c.moveToNext();
+        }
+        return result;
+    }
+    public void deleteAllReservation(){
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+        List<Model> reservelist = readAllReservations();
+        for (Model model:reservelist){
+            removeFromReservation(model.getId());
+        }
+
+         sqLiteDatabase.execSQL("delete from books where reserved=1");
 
     }
     public void deleteBook(int id){
@@ -109,6 +159,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         book.setPrice(c.getInt(5));
         book.setFavorite((c.getInt(6)==0? false:true));
         book.setBookPhoto(c.getInt(7));
+
         return book;
     }
 
