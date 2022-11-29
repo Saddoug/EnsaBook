@@ -6,6 +6,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.net.Uri;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -13,7 +14,9 @@ import androidx.annotation.Nullable;
 
 import com.ensa.ensabook.Model;
 
+import java.io.File;
 import java.io.FileInputStream;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -198,10 +201,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return searchResult;
     }
 
-    public Boolean insertImage(String fileLoc){
+    public Boolean insertImage(Uri fileLoc){
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
         try{
-            FileInputStream fileInputStream = new FileInputStream(fileLoc);
+            FileInputStream fileInputStream = new FileInputStream(new File(String.valueOf(fileLoc)));
             byte[] imgbyte = new byte[fileInputStream.available()];
             ContentValues contentValues = new ContentValues();
             contentValues.put("title","titre");

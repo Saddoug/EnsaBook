@@ -1,10 +1,14 @@
 package com.ensa.ensabook;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,6 +26,7 @@ public class AddbookActivity extends AppCompatActivity implements View.OnClickLi
     Button buttonSubmit;
     Button buttonReset;
     DatabaseHelper databaseHelper;
+    public static final int PICK_IMAGE = 100;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,9 +51,46 @@ public class AddbookActivity extends AppCompatActivity implements View.OnClickLi
 
             }
         });
-
+        buttonReset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_PICK, Uri.parse(
+                        "content://media/internal/images/media"
+                ));
+                startActivityForResult(intent,PICK_IMAGE);
+            }
+        });
 
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK && resultCode==PICK_IMAGE){
+            Uri uri = data.getData();
+            String x = getPath(uri);
+            if (databaseHelper.insertImage(uri)){
+                Toast.makeText(getApplicationContext(), "Succeful", Toast.LENGTH_SHORT).show();
+            }
+            else {
+                Toast.makeText(getApplicationContext(), "Failed", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+    public String getPath(Uri uri){
+        if (uri==null) return null;
+        String[] projection = {MediaStore.Images.Media.DATA};
+        Cursor cursor = managedQuery(uri,projection,null,null,null);
+        if (cursor!=null){
+            int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+            cursor.moveToFirst();
+            return cursor.getString(column_index);
+        }
+        return uri.getPath();
+    }
+
+
+
     public void reset(View v){
         titel.getText().clear();
         category.getText().clear();
