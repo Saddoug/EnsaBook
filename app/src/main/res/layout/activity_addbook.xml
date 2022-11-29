@@ -129,7 +129,7 @@
                             android:backgroundTint="@color/teal_200"
                             android:ems="10"
                             android:hint="Price"
-                            android:inputType="number"
+                            android:inputType="numberDecimal"
                             app:layout_constraintStart_toStartOf="@+id/bookCategoryInput"
                             app:layout_constraintTop_toBottomOf="@+id/bookCategoryInput" />
                         <EditText
@@ -152,34 +152,34 @@
                             android:id="@+id/buttonSubmit"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_below="@+id/bookDescriptionInput"
+                            android:layout_below="@+id/buttonUpload"
+                            android:layout_centerHorizontal="true"
 
                             android:layout_marginTop="28dp"
-                            android:layout_marginEnd="109dp"
-                            android:layout_toStartOf="@+id/buttonRAZ"
                             android:backgroundTint="@color/black"
                             android:padding="16dp"
                             android:text="submit"
                             android:textColor="@color/white"
                             android:textStyle="bold"
-                            app:layout_constraintBottom_toTopOf="@+id/buttonRAZ"
+                            app:layout_constraintBottom_toTopOf="@+id/buttonUpload"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintHorizontal_bias="0.498"
                             app:layout_constraintStart_toStartOf="parent" />
 
                         <Button
-                            android:id="@+id/buttonRAZ"
+                            android:id="@+id/buttonUpload"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/bookDescriptionInput"
-
-
                             android:layout_alignParentEnd="true"
-                            android:layout_marginTop="28dp"
-                            android:layout_marginEnd="47dp"
-                            android:backgroundTint="@color/black"
+
+
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="33dp"
+                            android:layout_marginEnd="117dp"
+                            android:backgroundTint="@color/BLUE_2"
                             android:padding="16dp"
-                            android:text="reset"
+                            android:text="Upload Image"
                             android:textColor="@color/white"
                             android:textStyle="bold"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -187,9 +187,6 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/buttonSubmit"
                             tools:layout_editor_absoluteY="549dp" />
-
-
-
 
 
                     </RelativeLayout>

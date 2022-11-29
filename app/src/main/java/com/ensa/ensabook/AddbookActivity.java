@@ -24,7 +24,7 @@ public class AddbookActivity extends AppCompatActivity implements View.OnClickLi
     EditText price;
     EditText description;
     Button buttonSubmit;
-    Button buttonReset;
+    Button buttonUpload;
     DatabaseHelper databaseHelper;
     public static final int PICK_IMAGE = 100;
 
@@ -39,9 +39,10 @@ public class AddbookActivity extends AppCompatActivity implements View.OnClickLi
         price=findViewById(R.id.bookPriceInput);
         description=findViewById(R.id.bookDescriptionInput);
         buttonSubmit=findViewById(R.id.buttonSubmit);
-        buttonReset=findViewById(R.id.buttonRAZ);
+        buttonUpload=findViewById(R.id.buttonUpload);
         buttonSubmit.setOnClickListener(this);
-        
+
+
         logoutIcon= findViewById(R.id.logout_icon);
         logoutIcon.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,7 +52,7 @@ public class AddbookActivity extends AppCompatActivity implements View.OnClickLi
 
             }
         });
-        buttonReset.setOnClickListener(new View.OnClickListener() {
+        buttonUpload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Intent.ACTION_PICK, Uri.parse(

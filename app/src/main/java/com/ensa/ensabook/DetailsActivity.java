@@ -122,7 +122,7 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
         buildernotif.setAutoCancel(true);//eliminer la notif apres clic
         //service de notofication
         NotificationManager notifManager =(NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        //pour les api level >= 26
+
         if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.O){
             CharSequence CHANNEL_NAME = getString(R.string.channel_name);
             int importants = NotificationManager.IMPORTANCE_DEFAULT;
